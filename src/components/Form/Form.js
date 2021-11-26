@@ -4,7 +4,7 @@ import { v4 as uuidv4 } from 'uuid';
 
 import { useDispatch } from 'react-redux';
 // import { addContact } from '../../redux/contacts/action';
-import { addContactOperation } from '../../redux/contacts/operations';
+import { addContactThunk } from 'redux/contacts/operations';
 
 function Form() {
   const [name, setName] = useState('');
@@ -26,7 +26,7 @@ function Form() {
       id: uuidv4(),
     };
 
-    dispatch(addContactOperation(obj));
+    dispatch(addContactThunk(obj));
     resetForm();
   };
 
