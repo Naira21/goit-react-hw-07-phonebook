@@ -15,6 +15,7 @@ export const addContactThunk = createAsyncThunk(
   'contact/addThunk',
   async newContact => {
     const { data } = await axios.post('/contacts', newContact);
+
     return data;
   },
 );

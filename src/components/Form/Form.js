@@ -2,9 +2,9 @@ import { useState, useRef } from 'react';
 import s from './Form.module.css';
 import { v4 as uuidv4 } from 'uuid';
 
-import { useDispatch } from 'react-redux';
-// import { addContact } from '../../redux/contacts/action';
+import { useDispatch, useSelector } from 'react-redux';
 import { addContactThunk } from 'redux/contacts/operations';
+import { filteredContacts } from 'redux/contacts/selectors';
 
 function Form() {
   const [name, setName] = useState('');
@@ -15,7 +15,7 @@ function Form() {
   const contactIdNumber = useRef(() => {
     uuidv4();
   });
-
+  const contacts = useSelector(filteredContacts);
   const dispatch = useDispatch();
 
   const handleSubmit = e => {
@@ -25,9 +25,16 @@ function Form() {
       number,
       id: uuidv4(),
     };
+    resetForm();
+    const duplicateContact = contacts.find(
+      contact => contact.name === obj.name,
+    );
+    if (duplicateContact) {
+      alert(`${obj.name} is already in contacts`);
+      return;
+    }
 
     dispatch(addContactThunk(obj));
-    resetForm();
   };
 
   const resetForm = () => {

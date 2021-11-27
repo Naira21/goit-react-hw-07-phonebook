@@ -8,10 +8,7 @@ import {
 
 export const items = createReducer([], {
   [fetchContactThunk.fulfilled]: (_, { payload }) => payload,
-  [addContactThunk.fulfilled]: (state, { payload }) =>
-    state.find(contact => contact.name === payload.name)
-      ? alert(`${payload.name} is already in contacts`)
-      : [...state, payload],
+  [addContactThunk.fulfilled]: (state, { payload }) => [...state, payload],
   [deleteContactThunk.fulfilled]: (state, { payload }) =>
     state.filter(contact => contact.id !== payload),
 });
